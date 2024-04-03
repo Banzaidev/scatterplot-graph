@@ -1,5 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    font-family: "Roboto Condensed", sans-serif;
+}
 #legend{
     position: fixed;
-    bottom: 120px;
+    bottom: 150px;
     left: 720px;
+}
+
+#tooltip{
+    background-color: red;
+    width: 400px;
+    height: 100px;
+    
 }

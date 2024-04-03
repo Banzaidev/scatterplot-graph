@@ -1,5 +1,5 @@
 
-import { useEffect} from 'react'
+import { useEffect, useState} from 'react'
 import * as d3 from 'd3'
 import './App.css'
 
@@ -11,6 +11,12 @@ function App() {
     bottom: 30,
     left: 60,
   }
+  const [toopltip, setTooltip] = useState({
+    'nationality': '',
+    'doping': '',
+    'name': '',
+    'xvalue': '',
+  })
 
 
   useEffect(() => {
@@ -51,19 +57,42 @@ function App() {
       .attr('cy', d => scaleDataY(new Date().setMinutes(d['Time'].split(':')[0],d['Time'].split(':')[1])))
       .attr('data-xvalue', d => (d['Year']))
       .attr('data-yvalue', d => new Date(d['Year'],0,0,0,d['Time'].split(':')[0],d['Time'].split(':')[1]))
+      .attr('name', d=> (d['Name']))
+      .attr('doping', d=> (d['Doping']))
+      .attr('nationality', d=> d['Nationality'])
       .attr('fill', d => d['Doping'] == '' ? 'orange' : 'blue' )
-
-
     })
     
-
   }, [])
+  
+  function overDot(event){
+    if(event.target.classList[0] == ('dot')){
+      let nationality = event.target.getAttribute('nationality')
+      let doping = event.target.getAttribute('doping')
+      let name = event.target.getAttribute('name')
+      let xvalue = event.target.getAttribute('data-xvalue')
+      setTooltip({
+        'name': name,
+        'nationality': nationality,
+        'doping': doping,
+        'xvalue' : xvalue,
+
+      })
+    }
+   
+
+  }
+  function mouseOut(e){
+    if(e.target.classList[0] == 'dot'){
+      setTooltip({name: '', nationality: '', doping: '', xvalue: ''})
+    }
+  }
 
 
   return (
     <>
       <h1 id="title">Doping in Professional Bicycle Racing</h1>
-      <svg width={width} height={height}>
+      <svg onMouseOut={mouseOut} onMouseOver={overDot} width={width} height={height}>
         <g id='x-axis'></g> 
         <g id='y-axis'></g> 
       </svg>
@@ -73,6 +102,18 @@ function App() {
         <circle fill='blue'cx={10} cy={15} r={radius} id='doping'></circle>
         <text x={25} y={20}>Riders with doping allegations</text>
       </svg>
+      
+      
+        {toopltip.name != '' ?
+          <div data-year={toopltip.xvalue} id='tooltip'>
+            <p>{toopltip.name}</p>
+            <p>{toopltip.doping}</p>
+            <p>{toopltip.nationality}</p>
+
+          </div>
+          :
+          <div  data-year={toopltip.xvalue} id='tooltip' hidden></div>
+        }
     </>
   )
 }
