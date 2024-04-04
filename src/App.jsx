@@ -75,8 +75,6 @@ function App() {
       let doping = event.target.getAttribute('doping')
       let name = event.target.getAttribute('name')
       let xvalue = event.target.getAttribute('data-xvalue')
-      console.log(event.pageX, event.pageY)
-      console.log(event)
       setTooltip({
         'name': name,
         'nationality': nationality,
@@ -94,7 +92,7 @@ function App() {
   }
   function mouseOut(e){
     if(e.target.classList[0] == 'dot'){
-      setTooltip({name: '', nationality: '', doping: '', xvalue: ''})
+      setTooltip({name: '', nationality: '', doping: '', xvalue: '', position:{'x':'', 'y': ''}})
     }
   }
 
@@ -118,7 +116,7 @@ function App() {
       
       
         {toopltip.name != '' ?
-          <div style={{transform: `translate(${toopltip.position.x}px,${toopltip.position.y >= (660 / 2) ? toopltip.position.y - 670: toopltip.position.y - 660}px)`}} data-year={toopltip.xvalue} id='tooltip'>
+          <div style={{transform: `translate(${toopltip.position.x}px,${toopltip.position.y >= (660 / 2) ? toopltip.position.y - 700: toopltip.position.y - 700}px)`}} data-year={toopltip.xvalue} id='tooltip'>
             <p>{toopltip.name} : {toopltip.nationality}</p>
             <p>Year: {toopltip.xvalue}</p>
             <p>{toopltip.doping}</p>
@@ -126,6 +124,7 @@ function App() {
           :
           <div  data-year={toopltip.xvalue} id='tooltip' hidden></div>
         }
+        <h4 id='author'>By <a target='_blank' rel='noopener noreferrer' href="https://github.com/Banzaidev">Banzaidev</a></h4>
     </>
   )
 }
