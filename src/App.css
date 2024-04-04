@@ -5,7 +5,7 @@
 }
 #title{
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 #graph{
     display: flex;
@@ -20,15 +20,24 @@
 }
 
 #tooltip{
-    background-color: red;
+    background-color: rgba(32, 157, 163, 0.642);
     position: fixed;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
     border-radius: 10px;
     text-align:center;
     text-justify: auto;
-    font-size:medium;
+    font-size:small;
     font-weight: bold;
 
+}
 
+#author{
+    text-align: center;
+}
+a{
+    text-decoration: none;
+}
+a:link{
+    color: black;
 }
