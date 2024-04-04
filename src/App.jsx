@@ -16,6 +16,10 @@ function App() {
     'doping': '',
     'name': '',
     'xvalue': '',
+    'position':{
+      'x':'',
+      'y':''
+    }
   })
 
 
@@ -71,11 +75,17 @@ function App() {
       let doping = event.target.getAttribute('doping')
       let name = event.target.getAttribute('name')
       let xvalue = event.target.getAttribute('data-xvalue')
+      console.log(event.pageX, event.pageY)
+      console.log(event)
       setTooltip({
         'name': name,
         'nationality': nationality,
         'doping': doping,
         'xvalue' : xvalue,
+        'position': {
+          'x': event.clientX,
+          'y': event.clientY
+        }
 
       })
     }
@@ -92,24 +102,26 @@ function App() {
   return (
     <>
       <h1 id="title">Doping in Professional Bicycle Racing</h1>
-      <svg onMouseOut={mouseOut} onMouseOver={overDot} width={width} height={height}>
-        <g id='x-axis'></g> 
-        <g id='y-axis'></g> 
-      </svg>
-      <svg width={240} height={50} id='legend'>
-        <circle fill='orange' cx={10} cy={35} r={radius} id='no-doping'></circle>
-        <text x={25} y={40}>No doping allegations</text>
-        <circle fill='blue'cx={10} cy={15} r={radius} id='doping'></circle>
-        <text x={25} y={20}>Riders with doping allegations</text>
-      </svg>
+      <div id='graph'>
+        <svg onMouseOut={mouseOut} onMouseOver={overDot} width={width} height={height}>
+          <g id='x-axis'></g> 
+          <g id='y-axis'></g> 
+        </svg>
+        <svg width={240} height={50} id='legend'>
+          <circle fill='orange' cx={10} cy={35} r={radius} id='no-doping'></circle>
+          <text x={25} y={40}>No doping allegations</text>
+          <circle fill='blue'cx={10} cy={15} r={radius} id='doping'></circle>
+          <text x={25} y={20}>Riders with doping allegations</text>
+        </svg>
+      </div>
+
       
       
         {toopltip.name != '' ?
-          <div data-year={toopltip.xvalue} id='tooltip'>
-            <p>{toopltip.name}</p>
+          <div style={{transform: `translate(${toopltip.position.x}px,${toopltip.position.y >= (660 / 2) ? toopltip.position.y - 670: toopltip.position.y - 660}px)`}} data-year={toopltip.xvalue} id='tooltip'>
+            <p>{toopltip.name} : {toopltip.nationality}</p>
+            <p>Year: {toopltip.xvalue}</p>
             <p>{toopltip.doping}</p>
-            <p>{toopltip.nationality}</p>
-
           </div>
           :
           <div  data-year={toopltip.xvalue} id='tooltip' hidden></div>
