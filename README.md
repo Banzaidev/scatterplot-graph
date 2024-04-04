@@ -1,1 +1,1 @@
-Scatterplot Graph - Data Visualization Projects (freeCodeCamp) live site:
+Scatterplot Graph - Data Visualization Projects (freeCodeCamp) live site: https://scatterplot-graph-ten.vercel.app/
